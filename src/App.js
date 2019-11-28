@@ -1,8 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import firebase from 'firebase'
+//import logo from './logo.svg'
+import './App.css'
 
-function App() {
+class App extends Component {
+   //creando la funcion para loguearse con google.
+   handleAuth() {
+      const provider = new firebase.auth.GoogleAuthProvider()
+
+      firebase
+         .auth()
+         .signInWithPopup(provider)
+         .then((result) => console.log(`${result.user.email} ha iniciado sesion`))
+         .catch((error) => console.log(`Error ${error.code}: ${error.message}`))
+   }
+
+   render() {
+      return (
+         <div className="App">
+            <div className="App-header">
+               <h2>Pseudogram</h2>
+            </div>
+            <p className="App-intro">
+               <button onClick={this.handleAuth}>Login con Google</button>
+            </p>
+         </div>
+      )
+   }
+}
+
+/* function App() {
   return (
     <div className="App">
       <header className="App-header">
@@ -21,6 +48,6 @@ function App() {
       </header>
     </div>
   );
-}
+} */
 
-export default App;
+export default App
